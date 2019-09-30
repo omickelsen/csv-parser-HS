@@ -1,0 +1,16 @@
+body {
+    background-color: #dfe4ea;
+  }
+  .container, .row, pre {
+    margin-top: 30px;
+  }
+  textarea {
+    text-align: center;
+    border: 2px solid black;
+    background-color: white;
+    margin: auto;
+    display: inline-block;
+  }
+  a {
+    color: #ff6b81;
+  }

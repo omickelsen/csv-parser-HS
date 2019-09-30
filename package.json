@@ -1,0 +1,31 @@
+{
+  "name": "csv-parser-hs",
+  "version": "1.0.0",
+  "description": "csv parser for HenrySchein",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omickelsen/csv-parser-HS.git"
+  },
+  "author": "Orie Mickelsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omickelsen/csv-parser-HS/issues"
+  },
+  "homepage": "https://github.com/omickelsen/csv-parser-HS#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^4.1.2",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}

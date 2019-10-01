@@ -14,7 +14,8 @@ app.post('/formatCSV', function (req, res) {
 
 });
 
-let finishedOutput = "";
+let finishedOutput;
+finishedOutput = "";
 let finishedString = "";
 
 
@@ -26,91 +27,100 @@ function formatCSV(str) {
     return "Input was null";
   }
 
+  let input = "";
+  input += "\n";
+  input += str;
+
   let lines = [];
-  lines = str.split(/\r\n|\n/);
-  console.log(lines, " here are the lines");
-  // console.log(lines[0]);
-  // console.log("this is after");
-  for ( let i = 0; i < lines.length; i++) {
-    // console.log(lines.length, " HOW MANY TIMES AM I RUNNING");
-    line = lines[0];
-    // line = "\"Alan said, Peter is learning Javascript\"";
-    if (line.length == 0){
-      break;
-    }
-    // line = line.toString().replace('"', '&');
-    // console.log(line, " REPLACED STRING ");
+  lines = input.split(/\r\n|\n/);
+console.log(input, " here is input");
+//document.write(input);
+//document.write(lines[0]);
+//document.write(lines[1]);
+//document.write(lines.length);
+
+for ( let i = 0; i < lines.length; i++) {
+let line;
+line = lines[i]
     finishedString = "";
     let pieces = [];
     pieces = line.split("");
-    console.log(pieces, " PIECES HERE");
+    //document.write(line);
+    //document.write(pieces);
+    
     let startsWithQuote = false;
     let tempX = "";
-    console.log( pieces[0], " here is pieces at index 0");
+    
     if (pieces[0] == '"'){
       startsWithQuote = true;
-      console.log(startsWithQuote, " starting with starts with quote.");
+      //document.write("Made it to starts");
     }
-    let parcedStr = "";
+    
+  let parcedStr = "";
     startNewPiece = false;
-    // console.log(pieces.length, " Pieces lengthy pieces")
+
     for (let i = 1; i < pieces.length; i++) {
-      // console.log(i, " what am I doing?????");
-      console.log(startsWithQuote, " why not made it to starts with quote");
       if (startsWithQuote) {
-        console.log(" made it to starts with quote");
         if (startNewPiece == true) {
+        //document.write("xxxxxx");
+        //document.write(finishedOutput);
           if (pieces[i] == '"') {
             startNewPiece = false;
           }
         } else if (pieces[i] != '"'){
           tempX += pieces [i];
-          console.log(tempX," TEMPX");
         } else {
-          console.log(" made it to after TempX");
           parcedStr += "[" + tempX + "]";
+          
           finishedString += parcedStr;
           parcedStr = "";
-          tempx = "";
+          tempX = "";
           startNewPiece = true;
+          
+                if(finishedString.length == 0) {
+      	// document.write("its zero");
+      }
 
           if ( i + 2 < pieces.length && pieces [i + 2] != '"'){
             startsWithQuote = false;
           }
         }
       } else {
-        console.log("do nothing if its comma");
         if (pieces [i] == ',' && tempX.length == 0){
             //do nothing if character is a comma
         }
         else if (pieces[i] != ','){
-          console.log(" here is a replacement");
           tempX += pieces[i];
         }
         else{
           parcedStr += "[" + tempX + "]";
           finishedString += parcedStr;
+                          if(finishedString.length == 0) {
+      	// document.write("its zero xxx");
+        }
           parcedStr = "";
-          tempx = "";
+          tempX = "";
           startNewPiece = true;
           if (i + 1 < pieces.length && pieces [i + 1] == '"'){
             startsWithQuote = true;
           }
-
         }
+      }
 
-      }
-      if (finishedOutput.length > 0){
-        finishedOutput += "\r\n";
-      }
-      finishedOutput += finishedString;
     }
     
-    // console.log(finishedOutput, " is this finished output?");
-    return finishedOutput;
-  }
+      if (finishedOutput.length > 0){
+        finishedOutput += "\n";
+      }
+      finishedOutput += finishedString;
 
 }
+console.log(finishedOutput);
+    return finishedOutput;
+    
+  }
+
+
 
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

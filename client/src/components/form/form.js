@@ -16,8 +16,8 @@ function Form() {
     </div>
     <form action="/formatCSV" method="POST">
     <div className="row">
-      <div className="col-sm-5">
-        <textarea placeholder="Copy CSV string here and submit to see results..." name="csv" rows="10" cols="55"></textarea>
+      <div className="col-sm-11">
+        <textarea placeholder="Copy CSV string here and submit" name="csv" rows="10" cols="55"></textarea>
       </div>
       <div className="col-sm-7">
       </div>

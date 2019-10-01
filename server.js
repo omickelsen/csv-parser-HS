@@ -3,19 +3,19 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
-let csvResult = "";
+var csvResult = "";
 app.set('Content-Type', 'text/plain');
 app.post('/formatCSV', function (req, res) {
 
 
   csvResult = formatCSV(req.body.csv);
-  // console.log(req.body.csv);
+  // console.log(req.body);
   res.send(csvResult);
 
 });
 
-let finishedOutput = "";
-let finishedString = "";
+var finishedOutput = "";
+var finishedString = "";
 
 
 
@@ -26,33 +26,34 @@ function formatCSV(str) {
     return "Input was null";
   }
 
-  let lines = [];
-  lines = str.split(/\r\n|\n/);
+  var lines = [];
+  lines = str.split("\r\n|\n");
   // console.log(lines[0]);
   // console.log("this is after");
-  for ( let i = 0; i < lines.length; i++) {
+  for ( var i = 0; i < lines.length; i++) {
     // console.log(lines.length, " HOW MANY TIMES AM I RUNNING");
-    line = lines[i];
+    line = lines[0];
+    // line = "\"Alan said, Peter is learning Javascript\"";
     if (line.length == 0){
       break;
     }
     // line = line.toString().replace('"', '&');
     // console.log(line, " REPLACED STRING ");
     finishedString = "";
-    let pieces = [];
+    var pieces = [];
     pieces = line.split("");
     console.log(pieces, " PIECES HERE");
-    startsWithQuote = false;
-    let tempX = "";
+   let  startsWithQuote = false;
+    var tempX = "";
     console.log( pieces[0], " here is pieces at index 0");
-    if (pieces[0] === '"') {
+    if (pieces[0] == '"'){
       startsWithQuote = true;
       console.log(startsWithQuote, " starting with starts with quote.");
     }
-    let parcedStr = "";
+    var parcedStr = "";
     startNewPiece = false;
     // console.log(pieces.length, " Pieces lengthy pieces")
-    for (let i = 1; i < pieces.length; i++) {
+    for (var i = 1; i < pieces.length; i++) {
       // console.log(i, " what am I doing?????");
       console.log(startsWithQuote, " why not made it to starts with quote");
       if (startsWithQuote) {

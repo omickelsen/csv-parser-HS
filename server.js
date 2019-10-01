@@ -3,8 +3,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
-var csvResult = "";
-app.set('Content-Type', 'text/plain');
+let csvResult = "";
+// app.set('Content-Type', 'text/plain');
 app.post('/formatCSV', function (req, res) {
 
 
@@ -14,8 +14,8 @@ app.post('/formatCSV', function (req, res) {
 
 });
 
-var finishedOutput = "";
-var finishedString = "";
+let finishedOutput = "";
+let finishedString = "";
 
 
 
@@ -26,11 +26,12 @@ function formatCSV(str) {
     return "Input was null";
   }
 
-  var lines = [];
-  lines = str.split("\r\n|\n");
+  let lines = [];
+  lines = str.split(/\r\n|\n/);
+  console.log(lines, " here are the lines");
   // console.log(lines[0]);
   // console.log("this is after");
-  for ( var i = 0; i < lines.length; i++) {
+  for ( let i = 0; i < lines.length; i++) {
     // console.log(lines.length, " HOW MANY TIMES AM I RUNNING");
     line = lines[0];
     // line = "\"Alan said, Peter is learning Javascript\"";
@@ -40,20 +41,20 @@ function formatCSV(str) {
     // line = line.toString().replace('"', '&');
     // console.log(line, " REPLACED STRING ");
     finishedString = "";
-    var pieces = [];
+    let pieces = [];
     pieces = line.split("");
     console.log(pieces, " PIECES HERE");
-   let  startsWithQuote = false;
-    var tempX = "";
+    let startsWithQuote = false;
+    let tempX = "";
     console.log( pieces[0], " here is pieces at index 0");
     if (pieces[0] == '"'){
       startsWithQuote = true;
       console.log(startsWithQuote, " starting with starts with quote.");
     }
-    var parcedStr = "";
+    let parcedStr = "";
     startNewPiece = false;
     // console.log(pieces.length, " Pieces lengthy pieces")
-    for (var i = 1; i < pieces.length; i++) {
+    for (let i = 1; i < pieces.length; i++) {
       // console.log(i, " what am I doing?????");
       console.log(startsWithQuote, " why not made it to starts with quote");
       if (startsWithQuote) {

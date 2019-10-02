@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 
 
-app.use(bodyParser.urlencoded({ extended: false })); // made a change here
+app.use(bodyParser.urlencoded({ extended: false })); 
 let csvResult = "";
 app.post('/formatCSV', function (req, res) {
   csvResult = formatCSV(req.body.csv);
@@ -15,10 +15,7 @@ app.post('/formatCSV', function (req, res) {
   // res.render(csvResult);
 
 });
-app.get('/', (req, res) =>{
-  const csvParsed = csvResult;
-  res.json(csvParsed);
-});
+
 
 
 
@@ -62,7 +59,7 @@ csvString = unescape(escapedCSV);
 
   let lines = [];
   lines = csvString.split(/\r\n|\n/); // splits at \r\n or \n and assigns the input to array lines
-console.log(csvString, " here is input");
+
 
 
 for ( let i = 0; i < lines.length; i++) {
@@ -142,7 +139,7 @@ line = lines[i]
       finishedOutput += finishedString;
 
 }
-console.log(finishedOutput);
+
     return finishedOutput;
     
   }

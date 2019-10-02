@@ -4,7 +4,6 @@ const PORT = process.env.PORT || 5000;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 let csvResult = "";
-// app.set('Content-Type', 'text/plain');
 app.post('/formatCSV', function (req, res) {
 
 
@@ -24,16 +23,35 @@ let finishedString = "";
 // Function to format the input CSV string
 function formatCSV(str) {
   if (!str) {     // Verifies that str exists
-    return "Input was null";
-  }
+    return "Input was null";}
+//
+//
+//
+let csvString = str;
 
-  let input = "";
-  input += "\n";
-  input += str;
+let escapedCSV = escape(csvString);
+
+while (true) {
+    let index = escapedCSV.indexOf("%u201C");
+    if (index === -1) {
+        break;
+    }
+    escapedCSV = escapedCSV.replace("%u201C", "%22");
+}
+
+while (true) {
+    let index = escapedCSV.indexOf("%u201D");
+    if (index === -1) {
+        break;
+    }
+    escapedCSV = escapedCSV.replace("%u201D", "%22");
+}
+csvString = unescape(escapedCSV);
+
 
   let lines = [];
-  lines = input.split(/\r\n|\n/);
-console.log(input, " here is input");
+  lines = csvString.split(/\r\n|\n/); // splits at \r\n or \n and assigns the input to array lines
+console.log(csvString, " here is input");
 //document.write(input);
 //document.write(lines[0]);
 //document.write(lines[1]);
@@ -42,19 +60,22 @@ console.log(input, " here is input");
 for ( let i = 0; i < lines.length; i++) {
 let line;
 line = lines[i]
+
     finishedString = "";
     let pieces = [];
     pieces = line.split("");
     //document.write(line);
     //document.write(pieces);
-    
+    //takes lines at index i and sets it to line. then it takes line and splits it at each character and assigns it to array pieces
     let startsWithQuote = false;
+    // assigns startsWithQuote to boolean false in preparation for the if statement
     let tempX = "";
     
     if (pieces[0] == '"'){
       startsWithQuote = true;
       //document.write("Made it to starts");
     }
+    //if statement that looks for the character at index 0 and asks the question if the character starts with a quote.
     
   let parcedStr = "";
     startNewPiece = false;

@@ -63,10 +63,7 @@ csvString = unescape(escapedCSV);
   let lines = [];
   lines = csvString.split(/\r\n|\n/); // splits at \r\n or \n and assigns the input to array lines
 console.log(csvString, " here is input");
-//document.write(input);
-//document.write(lines[0]);
-//document.write(lines[1]);
-//document.write(lines.length);
+
 
 for ( let i = 0; i < lines.length; i++) {
 let line;
@@ -88,7 +85,7 @@ line = lines[i]
     
   let parcedStr = "";
     startNewPiece = false;
-
+// The logic below loops through starting with quotes and if it starts with quotes than it will loop through all of the characters until it hits another quote if it's not a quote it will join the characters together and assign them to tempX. The quotes are then replaced with brackets with temp X in the middle
     for (let i = 1; i < pieces.length; i++) {
       if (startsWithQuote) {
         if (startNewPiece == true) {
@@ -107,13 +104,14 @@ line = lines[i]
           startNewPiece = true;
           
                 if(finishedString.length == 0) {
-      	// document.write("its zero");
       }
 
           if ( i + 2 < pieces.length && pieces [i + 2] != '"'){
             startsWithQuote = false;
           }
         }
+
+        //the code below is similar to that of above except it's going do the same with commas so if the it starts with commas it's going to loop through until it hits another comma and then putting it in brackets and getting rid of the commas.
       } else {
         if (pieces [i] == ',' && tempX.length == 0){
             //do nothing if character is a comma
@@ -125,7 +123,7 @@ line = lines[i]
           parcedStr += "[" + tempX + "]";
           finishedString += parcedStr;
                           if(finishedString.length == 0) {
-      	// document.write("its zero xxx");
+      
         }
           parcedStr = "";
           tempX = "";
@@ -135,7 +133,7 @@ line = lines[i]
           }
         }
       }
-
+          
     }
     
       if (finishedOutput.length > 0){

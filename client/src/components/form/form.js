@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './form.css';
 
-function Form() {
+class Form extends Component {
+  render(){
   return (
     <div className="App">
       <div className="container">
@@ -24,13 +25,14 @@ function Form() {
     </div>
     <div className="row">
       <div className="col-sm-12 text-center">
-        <button className="btn btn-dark" type="submit">Get results!</button>
+        <button className="btn btn-dark" type="submit">Get results</button>
       </div>
     </div>
     </form>
   </div>
     </div>
   );
+}
 }
 
 export default Form;
